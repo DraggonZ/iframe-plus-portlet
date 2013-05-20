@@ -30,8 +30,25 @@
 				} else if(message=="hide-loading-manual") {
 					closeLoadingMask();
 				}else{ //resize iframe
-					this.container.getElementsByTagName("iframe")[0]
-					.style.height = message	+ "px";
+				    var message = JSON.parse(message);
+				    var iframe = $("iframe").eq(0);
+				    iframe.height(message.height);
+				    /*alert("iframe height = " + iframe.height()
+				    		+ "\niframe width = " + iframe.width()
+				    		+ "\nbody width = " + $("body").width()
+				    		+ "\nmessage width = " + message.width
+				    		+ "\nmessage height = " + message.height);*/
+					//if (message.width > iframe.width()){
+					var diff =  message.width - iframe.width();
+					var body = $("body");
+					var oldWidth;
+					if (body.width() > iframe.width()){
+						oldWidth = body.width();
+					}
+					else{
+						oldWidth = iframe.width() + 30;
+					}
+					body.css("min-width", oldWidth + diff + "px");						
 				}
 			}
 		});
